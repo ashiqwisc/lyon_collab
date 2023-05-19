@@ -1,0 +1,18 @@
+---
+title: "Multimodal ONA Model for the University of Lyon"
+output:
+  html_document:
+    df_print: paged
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r, setup, include=FALSE, echo=FALSE}
+# Set local working directory
+# setwd("~/Desktop/epistemic_analytics/Monash_collab")
+```
+
+```{r, setup, include=FALSE, echo=FALSE}
+knitr::opts_knit$set(root.dir = '~/Documents/GitHub/lyon_collab')
+```
+
