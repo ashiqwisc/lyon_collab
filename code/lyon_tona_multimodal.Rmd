@@ -39,6 +39,11 @@ library(tidyverse)
 # Read in dataset, remove unnecessary columns 
 df <- read.csv("~/Desktop/epistemic_analytics/lyon_collab/data/LetsPlay_TMA_1stmodel.csv") %>%
   select(-X)
+
+# Fix line 6502 
+df[6502,6] <- "gaze"
+df[6502,15]<- 1
+df[,15] <- as.numeric(df[,15])
 ```
 
 # 2. Specify parameters: Units, codes, metadata, and HOO-rules 
@@ -99,15 +104,22 @@ ona_multimodal_tif_gof[[1]]
 ```
 ## 2) Variance explained
 ```{r}
-# ona_multimodal_tif_SVD <- lm(ona_multimodal_tif_set$points$SVD11 ~ ona_multimodal_tif_set$points$comparison) %>% summary()
-# ona_multimodal_tif_SVD$r.squared
+# This is arbitrary, I don't know what to regress here
+ona_multimodal_tif_SVD <- lm(ona_multimodal_tif_set$points$SVD1 ~ ona_multimodal_tif_set$points$classroom) %>% summary()
+ona_multimodal_tif_SVD$r.squared
 ```
 ## 3) Interpretive Alignment
 ```{r}
-source("code/ona_plotter_lyon.R")
+source("~/Desktop/epistemic_analytics/lyon_collab/code/ona_plotter_lyon.R")
 # Plot ONA plot
 make.ona.plot(ona_multimodal_tif_set, 
               "Lyon Multimodal Model") 
+```
+```{r}
+# Demonstrating that only instructors and Jourer 3 (at nearly 0,0) are plotted (why?)
+df_test <- as.data.frame(ona_multimodal_tif_set$points) %>%
+     mutate(units = ona_multimodal_tif_set$points$ENA_UNIT) %>%
+    select(classroom, group, actor, ENA_UNIT, ENA_DIRECTION, SVD1, SVD2)
 ```
 
 
