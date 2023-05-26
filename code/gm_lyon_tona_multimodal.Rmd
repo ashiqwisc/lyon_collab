@@ -1,5 +1,5 @@
 ---
-title: "Multimodal ONA Model for the University of Lyon"
+title: "Grand Mean Multimodal ONA Model for the University of Lyon"
 output:
   html_document:
     df_print: paged
@@ -110,7 +110,7 @@ ona_multimodal_tif_SVD$r.squared
 ```
 ## 3) Interpretive Alignment
 ```{r}
-source("~/Desktop/epistemic_analytics/lyon_collab/code/ona_plotter_lyon.R")
+source("~/Desktop/epistemic_analytics/lyon_collab/code/grand_mean_ona_plotter_lyon.R")
 # Plot ONA plot
 make.ona.plot(ona_multimodal_tif_set, 
               "Lyon Multimodal Model") 
