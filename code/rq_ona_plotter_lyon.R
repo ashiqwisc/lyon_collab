@@ -7,10 +7,10 @@ make.ona.plot <- function(set,
   mean <- plot(set, title = "Mean ONA plot") %>%
     edges(
       weights = set$line.weights,
-      edge_size_multiplier = 2,
+      edge_size_multiplier = 4,
       edge_color = c("red")) %>%
     nodes(
-      # node_size_multiplier = 0.5,
+      node_size_multiplier = 2,
       self_connection_color = c("red")) %>%
     units(
       points=set$points,
@@ -44,10 +44,10 @@ make.ona.plot <- function(set,
   class_5 <- plot(set, title = "Classroom 5 plot") %>%
     edges(
       weights = set$line.weights[set$line.weights$classroom == "5",],
-      edge_size_multiplier = 2,
+      edge_size_multiplier = 4,
       edge_color = c("orange")) %>%
     nodes(
-      # node_size_multiplier = 0.5,
+      node_size_multiplier = 2,
       self_connection_color = c("orange")) %>%
     units(
       points=set$points[set$points$classroom == "5",],
@@ -58,10 +58,10 @@ make.ona.plot <- function(set,
   class_CE2 <- plot(set, title = "Classroom CE2 plot") %>%
     edges(
       weights = set$line.weights[set$line.weights$classroom == "CE2",],
-      edge_size_multiplier = 2,
+      edge_size_multiplier = 4,
       edge_color = c("green")) %>%
     nodes(
-      # node_size_multiplier = 0.5,
+      node_size_multiplier = 2,
       self_connection_color = c("green")) %>%
     units(
       points=set$points[set$points$classroom == "CE2",],
@@ -72,10 +72,10 @@ make.ona.plot <- function(set,
   class_CM1 <- plot(set, title = "Classroom CM1 plot") %>%
     edges(
       weights = set$line.weights[set$line.weights$classroom == "CM1",],
-      edge_size_multiplier = 2,
+      edge_size_multiplier = 4,
       edge_color = c("blue")) %>%
     nodes(
-      # node_size_multiplier = 0.5,
+      node_size_multiplier = 2,
       self_connection_color = c("blue")) %>%
     units(
       points=set$points[set$points$classroom == "CM1",],
@@ -86,10 +86,10 @@ make.ona.plot <- function(set,
   class_CM2 <- plot(set, title = "Classroom CM2 plot") %>%
     edges(
       weights = set$line.weights[set$line.weights$classroom == "CM2",],
-      edge_size_multiplier = 2,
+      edge_size_multiplier = 4,
       edge_color = c("purple")) %>%
     nodes(
-      # node_size_multiplier = 0.5,
+      node_size_multiplier = 2,
       self_connection_color = c("purple")) %>%
     units(
       points=set$points[set$points$classroom == "CM2",],

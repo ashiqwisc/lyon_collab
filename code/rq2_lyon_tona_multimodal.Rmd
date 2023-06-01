@@ -50,7 +50,7 @@ df[,15] <- as.numeric(df[,15])
 ```{r}
 # Define units, codes, metadata, and HOO rules
 unit_cols <- c("classroom", "group", "actor")
-code_cols <- c("Intercomprehension.checks_VIC.collective", "Intercomprehension.checks_VIC.individuelle", "phatic.gazes_Player.1", "phatic.gazes_Player.2", "phatic.gazes_Player.3", "phatic.gazes_Player.4")
+code_cols <- c("multimodal.relevance_correct..hors.pertinence.linguistique.", "multimodal.relevance_correct.and.complete", "multimodal.relevance_correct.and.incomplete", "multimodal.relevance_incorrect","verbal.relevance_correct.and.complete",            "verbal.relevance_correct.and.incomplete", "verbal.relevance_incorrect")
 meta_cols <- c("qualitative_content", "Rules")
 HOO_rules_model <- tma:::rules( 
   classroom %in% UNIT$classroom & group %in% UNIT$group 
