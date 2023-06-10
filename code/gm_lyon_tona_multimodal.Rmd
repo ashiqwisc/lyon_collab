@@ -78,11 +78,11 @@ ona_multimodal_tif_accum <- tma:::accumulate_contexts (
     decay.function = function(x) {
       mod <- FULL_CONTEXT[RESPONSE_INDEX, ]$Modality
       if(mod == "verbal")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 20))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
       if(mod == "gesture")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 20))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
       if(mod == "gaze")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 10))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 3))*1
       else
         return(0)
       },

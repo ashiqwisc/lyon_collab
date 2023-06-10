@@ -44,13 +44,19 @@ df <- read.csv("~/Desktop/epistemic_analytics/lyon_collab/data/LetsPlay_TMA_1stm
 df[6502,6] <- "gaze"
 df[6502,15]<- 1
 df[,15] <- as.numeric(df[,15])
+
+# Combine phatic gazes into one column
+df <- df %>%
+  mutate(`phatic.gazes` = phatic.gazes_Player.1 + phatic.gazes_Player.2 + phatic.gazes_Player.3 + phatic.gazes_Player.4) %>%
+  mutate(`phatic.gazes` = case_when(phatic.gazes > 0 ~ 1, phatic.gazes == 0 ~ 0))
 ```
 
 # 2. Specify parameters: Units, codes, metadata, and HOO-rules 
 ```{r}
 # Define units, codes, metadata, and HOO rules
 unit_cols <- c("classroom", "group", "actor")
-code_cols <- c("Intercomprehension.checks_VIC.collective", "Intercomprehension.checks_VIC.individuelle", "phatic.gazes_Player.1", "phatic.gazes_Player.2", "phatic.gazes_Player.3", "phatic.gazes_Player.4")
+# code_cols <- c("Intercomprehension.checks_VIC.collective", "Intercomprehension.checks_VIC.individuelle", "phatic.gazes_Player.1", "phatic.gazes_Player.2", "phatic.gazes_Player.3", "phatic.gazes_Player.4")
+code_cols <- c("Intercomprehension.checks_VIC.collective", "Intercomprehension.checks_VIC.individuelle", "phatic.gazes")
 meta_cols <- c("qualitative_content", "Rules")
 HOO_rules_model <- tma:::rules( 
   classroom %in% UNIT$classroom & group %in% UNIT$group 
@@ -77,11 +83,11 @@ ona_multimodal_tif_accum <- tma:::accumulate_contexts (
     decay.function = function(x) {
       mod <- FULL_CONTEXT[RESPONSE_INDEX, ]$Modality
       if(mod == "verbal")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 20))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
       if(mod == "gesture")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 20))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
       if(mod == "gaze")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 10))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 3))*1
       else
         return(0)
       },
