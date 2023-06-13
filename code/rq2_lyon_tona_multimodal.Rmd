@@ -50,7 +50,7 @@ df[,15] <- as.numeric(df[,15])
 ```{r}
 # Define units, codes, metadata, and HOO rules
 unit_cols <- c("classroom", "group", "actor")
-code_cols <- c("multimodal.relevance_correct..hors.pertinence.linguistique.", "multimodal.relevance_correct.and.complete", "multimodal.relevance_correct.and.incomplete", "multimodal.relevance_incorrect","verbal.relevance_correct.and.complete",            "verbal.relevance_correct.and.incomplete", "verbal.relevance_incorrect")
+code_cols <- c("multimodal.relevance_correct..hors.pertinence.linguistique.", "multimodal.relevance_correct.and.complete", "multimodal.relevance_correct.and.incomplete", "multimodal.relevance_incorrect","verbal.relevance_correct.and.complete",            "verbal.relevance_correct.and.incomplete", "verbal.relevance_incorrect", "Intercomprehension.checks_VIC.collective", "Intercomprehension.checks_VIC.individuelle")
 meta_cols <- c("qualitative_content", "Rules")
 HOO_rules_model <- tma:::rules( 
   classroom %in% UNIT$classroom & group %in% UNIT$group 
@@ -91,7 +91,18 @@ ona_multimodal_tif_accum <- tma:::accumulate_contexts (
 ) 
 
 # Make set 
-ona_multimodal_tif_set <- model(ona_multimodal_tif_accum)
+# ona_multimodal_tif_set <- model(ona_multimodal_tif_accum)
+
+# MR, CE2 vs. 5
+my_rotation.params = 
+  list(CE2 = ona_multimodal_tif_accum$meta.data$classroom == "CE2",
+       `5` = ona_multimodal_tif_accum$meta.data$classroom == "5")
+
+ona_multimodal_tif_set <-
+  model(ona_multimodal_tif_accum,                                 # The previously run accumulation above
+        rotate.using ="mean",                  # Function provided by ONA
+        rotation.params = my_rotation.params   # The defined paremeters for rotation
+        )
 ```
 
 # 5. Analyze model  
@@ -103,7 +114,7 @@ ona_multimodal_tif_gof[[1]]
 ```
 ## 2) Variance explained
 ```{r}
-ona_multimodal_tif_SVD <- lm(ona_multimodal_tif_set$points$SVD1 ~ ona_multimodal_tif_set$points$classroom) %>% summary()
+ona_multimodal_tif_SVD <- lm(ona_multimodal_tif_set$points$MR1 ~ ona_multimodal_tif_set$points$classroom) %>% summary()
 ona_multimodal_tif_SVD$r.squared
 ```
 ## 3) Interpretive Alignment
@@ -117,6 +128,6 @@ make.ona.plot(ona_multimodal_tif_set,
 
 ```{r}
 # Pairwise t test with BH corrections, providing statistical warrant for ONA-score-togetherness observation
-pairwise.t.test(ona_multimodal_tif_set$points$SVD1, ona_multimodal_tif_set$points$classroom, p.adjust.method = "BH")
+pairwise.t.test(ona_multimodal_tif_set$points$MR1, ona_multimodal_tif_set$points$classroom, p.adjust.method = "BH")
 ```
 
