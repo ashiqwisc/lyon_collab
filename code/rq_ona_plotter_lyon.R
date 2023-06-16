@@ -102,7 +102,7 @@ make.ona.plot <- function(set,
   CE2_v_CM1 <- plot(set, title = "Classroom CE2 v. CM1") %>%
     edges(
       weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM1",])),
-      edge_size_multiplier = 4, 
+      edge_size_multiplier = 8, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("green", "blue")
     ) %>%
@@ -123,7 +123,7 @@ make.ona.plot <- function(set,
   CM1_v_CM2 <- plot(set, title = "Classroom CM1 v. CM2") %>%
     edges(
       weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM1",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM2",])),
-      edge_size_multiplier = 4, 
+      edge_size_multiplier = 8, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("blue", "purple")
     ) %>%
@@ -144,7 +144,7 @@ make.ona.plot <- function(set,
   CM2_v_5 <- plot(set, title = "Classroom CM2 v. 5") %>%
     edges(
       weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])),
-      edge_size_multiplier = 4, 
+      edge_size_multiplier = 8, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("purple", "orange")
     ) %>%
@@ -166,7 +166,7 @@ make.ona.plot <- function(set,
   CE2_v_5 <- plot(set, title = "Classroom CE2 v. 5") %>%
     edges(
       weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])),
-      edge_size_multiplier = 4, 
+      edge_size_multiplier = 16, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("green", "orange")
     ) %>%
@@ -175,7 +175,7 @@ make.ona.plot <- function(set,
       self_connection_color = c("green", "orange")
     ) %>% 
     units(
-      points=set$points[set$points$classroom == "CM2",],
+      points=set$points[set$points$classroom == "CE2",],
       points_color = c("green") ,
       show_mean = TRUE, show_points = FALSE, with_ci = TRUE) %>%
     units(

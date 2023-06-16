@@ -30,6 +30,8 @@ library(ona)
 library(tma)
 library(readxl)
 library(tidyverse)
+library(rcompanion)
+library(psych)
 # Source plotter code
 # source("~/Desktop/epistemic_analytics/lyon_collab/code/ona_plotter_lyon.R")
 ```
@@ -77,11 +79,11 @@ ona_multimodal_tif_accum <- tma:::accumulate_contexts (
     decay.function = function(x) {
       mod <- FULL_CONTEXT[RESPONSE_INDEX, ]$Modality
       if(mod == "verbal")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 15))*1
       if(mod == "gesture")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 10))*1
       if(mod == "gaze")
-        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 3))*1
+        return(x<(FULL_CONTEXT[ROWS]$End - FULL_CONTEXT[ROWS]$Start + 5))*1
       else
         return(0)
       },
@@ -126,8 +128,34 @@ make.ona.plot(ona_multimodal_tif_set,
 ```
 
 
+## Statistics
+
 ```{r}
-# Pairwise t test with BH corrections, providing statistical warrant for ONA-score-togetherness observation
-pairwise.t.test(ona_multimodal_tif_set$points$MR1, ona_multimodal_tif_set$points$classroom, p.adjust.method = "BH")
+data <- as.data.frame(ona_multimodal_tif_set$points$MR1) %>% 
+  mutate(points = ona_multimodal_tif_set$points$MR1, classroom = ona_multimodal_tif_set$points$classroom) %>%
+  select(-"ona_multimodal_tif_set$points$MR1")
+
+# Verify assumptions of normality and homogenous variance
+anova <- aov(ona_multimodal_tif_set$points$MR1 ~ ona_multimodal_tif_set$points$classroom)
+anova_residuals <- residuals(object = anova)
+shapiro.test(x = anova_residuals) # Fails Shapiro-Wilk test--scores not normally distributed (significant p-value)
+
+leveneTest(points ~ classroom, data = data) # Passes Levene's test, variance is homogenous 
+
+# Pairwise wilcox test with BH corrections, providing statistical warrant for ONA-score observation
+result <- pairwise.wilcox.test(ona_multimodal_tif_set$points$MR1, ona_multimodal_tif_set$points$classroom, p.adjust.method = "BH")
+result
+
+# Effect sizes (rank-biserial correlation) for CE2 v. 5
+CE2 <- data %>%
+  filter(classroom == "CE2")
+CE2 <- pull(CE2, points)
+
+`5` <- data %>%
+  filter(classroom == "5")
+`5` <- pull(`5`, points)
+
+abs(wilcoxonR(CE2, `5`)) # NaN?
+
 ```
 
