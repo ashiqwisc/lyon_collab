@@ -101,13 +101,13 @@ make.ona.plot <- function(set,
   
   CE2_v_CM1 <- plot(set, title = "Classroom CE2 v. CM1") %>%
     edges(
-      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM1",])),
-      edge_size_multiplier = 8, 
+      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM1",])) * 8,
+      edge_size_multiplier = 3, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("green", "blue")
     ) %>%
     nodes(
-      node_size_multiplier = 2, 
+      node_size_multiplier = 1, 
       self_connection_color = c("green", "blue")
     ) %>% 
     units(
@@ -122,13 +122,13 @@ make.ona.plot <- function(set,
   
   CM1_v_CM2 <- plot(set, title = "Classroom CM1 v. CM2") %>%
     edges(
-      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM1",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM2",])),
-      edge_size_multiplier = 8, 
+      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM1",]) - colMeans(set$line.weights[set$line.weights$classroom == "CM2",])) * 8,
+      edge_size_multiplier = 3, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("blue", "purple")
     ) %>%
     nodes(
-      node_size_multiplier = 2, 
+      node_size_multiplier = 1, 
       self_connection_color = c("blue", "purple")
     ) %>% 
     units(
@@ -143,13 +143,13 @@ make.ona.plot <- function(set,
   
   CM2_v_5 <- plot(set, title = "Classroom CM2 v. 5") %>%
     edges(
-      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])),
-      edge_size_multiplier = 8, 
+      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CM2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])) * 8,
+      edge_size_multiplier = 3, 
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("purple", "orange")
     ) %>%
     nodes(
-      node_size_multiplier = 2, 
+      node_size_multiplier = 1, 
       self_connection_color = c("purple", "orange")
     ) %>% 
     units(
@@ -165,13 +165,13 @@ make.ona.plot <- function(set,
   # Try most distinct age groups 
   CE2_v_5 <- plot(set, title = "Classroom CE2 v. 5") %>%
     edges(
-      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])),
-      edge_size_multiplier = 16, 
+      weights = (colMeans(set$line.weights[set$line.weights$classroom == "CE2",]) - colMeans(set$line.weights[set$line.weights$classroom == "5",])) * 8,
+      edge_size_multiplier = 3,
       edge_arrow_saturation_multiplier = 2,
       edge_color = c("green", "orange")
     ) %>%
     nodes(
-      node_size_multiplier = 2, 
+      node_size_multiplier = 1, 
       self_connection_color = c("green", "orange")
     ) %>% 
     units(

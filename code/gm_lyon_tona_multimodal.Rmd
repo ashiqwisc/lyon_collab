@@ -44,6 +44,11 @@ df <- read.csv("~/Desktop/epistemic_analytics/lyon_collab/data/LetsPlay_TMA_1stm
 df[6502,6] <- "gaze"
 df[6502,15]<- 1
 df[,15] <- as.numeric(df[,15])
+
+summary <- df %>%
+  group_by(classroom, group, actor) %>%
+  summarize(n = n()) %>% 
+  filter(actor != "Adulte")
 ```
 
 # 2. Specify parameters: Units, codes, metadata, and HOO-rules 
